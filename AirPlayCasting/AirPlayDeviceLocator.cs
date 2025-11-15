@@ -11,19 +11,13 @@ public class AirPlayDeviceLocator
 
     // Bit 25 (0x02000000) indicates password required
     private const long PwRequired = 0x02000000;
-    private readonly TimeSpan _refreshRate;
     private CancellationTokenSource? _cts;
     public List<AirPlayDevice> DiscoveredDevices { get; private set; } = new();
 
-    public AirPlayDeviceLocator(TimeSpan refreshRate)
-    {
-        _refreshRate = refreshRate;
-    }
-
-    public void StartAsync()
+    public async Task StartAsync()
     {
         _cts = new CancellationTokenSource();
-        Task.Run(async () => await Scan(), _cts.Token);
+        await Scan();
     }
 
     public void StopAsync()
@@ -41,52 +35,47 @@ public class AirPlayDeviceLocator
         var protocolsOfInterest = domains.Where(x => x.Key.Contains("airplay"))
             .Select(g => g.Key)
             .ToList();
-        
+
         var scannedDevices = new List<AirPlayDevice>();
-        while (_cts is { IsCancellationRequested: false })
+        scannedDevices.Clear();
+
+        var devices = await ZeroconfResolver.ResolveAsync(protocolsOfInterest);
+        foreach (var device in devices)
         {
-            scannedDevices.Clear();
-            
-            var devices = await ZeroconfResolver.ResolveAsync(protocolsOfInterest);
-            foreach (var device in devices)
+            if (device.Services.Count == 0)
             {
-                if (device.Services.Count == 0)
-                {
-                    continue;
-                }
-
-                var service = device.Services.Values.FirstOrDefault();
-                if (service == null)
-                {
-                    continue;
-                }
-
-                var isPinRequired = IsDevicePinProtected(service.Properties);
-
-                var airplayDevice = new AirPlayDevice
-                {
-                    Port = service.Port,
-                    DisplayName = device.DisplayName,
-                    Ip = device.IPAddress,
-                    PinRequired = isPinRequired
-                };
-
-                scannedDevices.Add(airplayDevice);
-                if (DiscoveredDevices.Contains(airplayDevice))
-                {
-                    continue;
-                }
-                
-                DiscoveredDevices.Add(airplayDevice);
-                OnDeviceDiscovered?.Invoke(this, new AirPlayDeviceArg(airplayDevice));
+                continue;
             }
 
-            if (TryConsolidateDevices(scannedDevices))
+            var service = device.Services.Values.FirstOrDefault();
+            if (service == null)
             {
-                OnCollectionChanged?.Invoke(this, EventArgs.Empty);
+                continue;
             }
-            
-            await Task.Delay(_refreshRate, _cts.Token);
+
+            var isPinRequired = IsDevicePinProtected(service.Properties);
+
+            var airplayDevice = new AirPlayDevice
+            {
+                Port = service.Port,
+                DisplayName = device.DisplayName,
+                Ip = device.IPAddress,
+                PinRequired = isPinRequired
+            };
+
+            scannedDevices.Add(airplayDevice);
+            if (DiscoveredDevices.Contains(airplayDevice))
+            {
+                continue;
+            }
+
+            DiscoveredDevices.Add(airplayDevice);
+            OnDeviceDiscovered?.Invoke(this, new AirPlayDeviceArg(airplayDevice));
+        }
+
+        if (TryConsolidateDevices(scannedDevices))
+        {
+            OnCollectionChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -107,7 +96,7 @@ public class AirPlayDeviceLocator
                 i++;
             }
         }
-        
+
         return collectionModified;
     }
 
@@ -153,7 +142,8 @@ public class AirPlayDeviceLocator
         return false;
     }
 
-    private static bool TryGetPropertyValue(IReadOnlyCollection<IReadOnlyDictionary<string, string>> properties, string key,
+    private static bool TryGetPropertyValue(IReadOnlyCollection<IReadOnlyDictionary<string, string>> properties,
+        string key,
         out string value)
     {
         value = string.Empty;

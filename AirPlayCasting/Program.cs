@@ -1,14 +1,22 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using AirPlayCasting;
+using AirPlayCasting.Contracts;
 
-var locator = new AirPlayDeviceLocator(TimeSpan.FromSeconds(10));
+var locator = new AirPlayDeviceLocator();
+var devices = new Dictionary<string, AirPlayDevice>();
+var idx = 0;
 locator.OnDeviceDiscovered += (sender, eventArgs) =>
 {
-    Console.WriteLine(eventArgs.Device);
+    devices.Add(idx.ToString(), eventArgs.Device);
+    Console.WriteLine($"{idx++} {eventArgs.Device}");
 };
-locator.StartAsync();
+await locator.StartAsync();
+Console.Write("Selected device by ID: ");
+var selectedDevice = Console.ReadLine();
 
+var connector = new AirPlayDeviceConnector();
+await connector.ConnectAsync(devices[selectedDevice]);
 while (true)
 {
     Console.ReadLine();
