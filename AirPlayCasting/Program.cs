@@ -15,8 +15,9 @@ await locator.StartAsync();
 Console.Write("Selected device by ID: ");
 var selectedDevice = Console.ReadLine();
 
-var connector = new AirPlayDeviceConnector();
-await connector.ConnectAsync(devices[selectedDevice]);
+var connector = new AirPlayConnector();
+await connector.PairWithDevice(devices[selectedDevice].Ip);
+//await connector.ConnectAsync(devices[selectedDevice]);
 while (true)
 {
     Console.ReadLine();

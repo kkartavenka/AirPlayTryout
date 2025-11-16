@@ -2,6 +2,15 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirPlayCasting", "AirPlayCasting\AirPlayCasting.csproj", "{989D9372-CEB8-411A-BE0B-9DD36B467919}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirPlayNet", "AirPlayNet\AirPlayNet.csproj", "{F8986EAC-6751-4CF8-A2F9-9A5C87DEEFEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{3E9B6C41-14DB-4B72-ACB6-166C594CF9BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B97F00AF-8C51-4391-B018-335884566405}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +21,13 @@ Global
 		{989D9372-CEB8-411A-BE0B-9DD36B467919}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{989D9372-CEB8-411A-BE0B-9DD36B467919}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{989D9372-CEB8-411A-BE0B-9DD36B467919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8986EAC-6751-4CF8-A2F9-9A5C87DEEFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8986EAC-6751-4CF8-A2F9-9A5C87DEEFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8986EAC-6751-4CF8-A2F9-9A5C87DEEFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8986EAC-6751-4CF8-A2F9-9A5C87DEEFEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9B6C41-14DB-4B72-ACB6-166C594CF9BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9B6C41-14DB-4B72-ACB6-166C594CF9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9B6C41-14DB-4B72-ACB6-166C594CF9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9B6C41-14DB-4B72-ACB6-166C594CF9BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "dgSpecHash": "feMhmapt7pg=",
+  "success": true,
+  "projectFilePath": "/Users/kkartavenka/Documents/GitHub/ConsoleApp3/AirPlayNet/AirPlayNet.csproj",
+  "expectedPackageFiles": [
+    "/Users/kkartavenka/.nuget/packages/sixlabors.imagesharp/3.1.5/sixlabors.imagesharp.3.1.5.nupkg.sha512",
+    "/Users/kkartavenka/.nuget/packages/system.reactive/5.0.0/system.reactive.5.0.0.nupkg.sha512",
+    "/Users/kkartavenka/.nuget/packages/zeroconf/3.7.16/zeroconf.3.7.16.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'SixLabors.ImageSharp' 3.1.5 has a known high severity vulnerability, https://github.com/advisories/GHSA-2cmq-823j-5qj8",
+      "projectPath": "/Users/kkartavenka/Documents/GitHub/ConsoleApp3/AirPlayNet/AirPlayNet.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/kkartavenka/Documents/GitHub/ConsoleApp3/AirPlayNet/AirPlayNet.csproj",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'SixLabors.ImageSharp' 3.1.5 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-rxmq-m78w-7wmc",
+      "projectPath": "/Users/kkartavenka/Documents/GitHub/ConsoleApp3/AirPlayNet/AirPlayNet.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/kkartavenka/Documents/GitHub/ConsoleApp3/AirPlayNet/AirPlayNet.csproj",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
+}
