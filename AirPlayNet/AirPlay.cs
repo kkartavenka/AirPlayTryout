@@ -202,7 +202,6 @@ public class AirPlay
             var url = $"http://{hostname}:{port}{uri}";
             var request = new HttpRequestMessage(new HttpMethod(method), url);
 
-            headers.Add("Authorization", MakeAuthorization(params_, password!, method, uri));
             if (params_ != null)
             {
                 headers["Authorization"] = MakeAuthorization(params_, password!, method, uri);
